@@ -1,7 +1,6 @@
 #include "VirtualMemory.h"
 //#include "EX4_Resources/PhysicalMemory.h"
 #include "PhysicalMemory.h"
-#include <iostream>
 
 #define SUCCESS 1
 #define FAILURE 0
@@ -105,14 +104,15 @@ uint64_t traverse(uint64_t frame_pointer,
       offset = get_root_bits_num();
     }
     uint64_t loop_offset = 1LL << offset;
-    for (int i = 0; i < loop_offset; ++i){
+    for (uint64_t i = 0; i < loop_offset; ++i){
       word_t child_p_frame;
       PMread(frame_pointer * PAGE_SIZE + i, &child_p_frame);
-      max_frame_index = child_p_frame > max_frame_index ? child_p_frame :
-                        max_frame_index; //todo check
+      max_frame_index = (uint64_t) child_p_frame > max_frame_index ?
+              child_p_frame :
+                        max_frame_index;
       if (child_p_frame != 0){
         empty_table = false;
-        if (child_p_frame == last_frame) continue;
+        if ((uint64_t) child_p_frame == last_frame) continue;
         uint64_t child_virtual_address = (virtual_info.address << offset) + i;
         virtualAddress child_virtual_info = {
             virtual_info.length + offset,
@@ -128,7 +128,7 @@ uint64_t traverse(uint64_t frame_pointer,
         // if empty table found during traverse
         if (empty_table_index) {
           // unlink empty child if it's the father
-          if (empty_table_index == child_p_frame){
+          if (empty_table_index == (uint64_t) child_p_frame){
             PMwrite (frame_pointer * PAGE_SIZE + i, 0);
           }
           return empty_table_index;
@@ -149,7 +149,7 @@ word_t get_next_frame (virtualAddress &path_info,
 {
   word_t next_frame;
   uint64_t max_frame_index = 0;
-  maxDistPage max_page = {0,0,0};
+  maxDistPage max_page = {0,0,0, 0};
   uint64_t empty_table_index = traverse (0, path_info, 0,
                                          max_frame_index,
                                          page_swapped_in,
@@ -167,8 +167,7 @@ word_t get_next_frame (virtualAddress &path_info,
   else{
     // evict
     PMevict(max_page.frame_pointer, max_page.v_address);
-    // reset frame todo maybe remove
-//    reset_frame (max_page.frame_pointer);
+    reset_frame (max_page.frame_pointer);
     // father unlink
     uint64_t page_link_address = max_page.parent_frame * PAGE_SIZE + (max_page
                                                                           .v_address % PAGE_SIZE);
@@ -249,7 +248,7 @@ int VMread(uint64_t virtualAddress, word_t* value){
   return SUCCESS;
 }
 
-int VMwrite(uint64_t virtualAddress, word_t value){ //todo return success/ fail
+int VMwrite(uint64_t virtualAddress, word_t value){
   if (!verify_address(virtualAddress)){
     return FAILURE;
   }

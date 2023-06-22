@@ -16,7 +16,7 @@ struct maxDistPage{
     uint64_t parent_frame;
 };
 
-
+void reset_frame (word_t next_frame);
 void VMinitialize(){
   for (int i = 0; i < OFFSET_WIDTH; ++i)
   {
@@ -31,6 +31,11 @@ unsigned int count_bits(uint64_t number)
     number = number >> 1;
   }
   return count;
+}
+
+uint64_t get_offset_from_address(uint64_t virtual_address){
+  uint64_t mask = (1LL << (OFFSET_WIDTH)) - 1;
+  return virtual_address & mask;
 }
 
 int get_root_bits_num(){
@@ -160,7 +165,9 @@ word_t get_next_frame (virtualAddress &path_info,
   else{
     // evict
     PMevict(max_page.frame_pointer, max_page.v_address);
-    // todo: unlink father
+    // reset frame todo maybe remove
+    reset_frame (max_page.frame_pointer);
+    // father unlink
     uint64_t page_link_address = max_page.parent_frame * PAGE_SIZE + (max_page
                                                                           .v_address % PAGE_SIZE);
     PMwrite(page_link_address, 0);
@@ -170,7 +177,8 @@ word_t get_next_frame (virtualAddress &path_info,
 }
 
 
-uint64_t get_address (uint64_t &_virtual_address, uint64_t& dest_address)
+void get_frame (uint64_t &_virtual_address, uint64_t& dest_address,
+                    bool& page_fault)
 {
   int root_bits_num = get_root_bits_num();
   int shift = root_bits_num;
@@ -185,41 +193,55 @@ uint64_t get_address (uint64_t &_virtual_address, uint64_t& dest_address)
     PMread(cur_frame * PAGE_SIZE + offset, &next_frame);
     // Page Fault
     if (next_frame == 0){
+      page_fault = true;
       next_frame = get_next_frame (path_info, page_swapped_in, op_frame);
       op_frame = next_frame;
       // write the next_frame
       PMwrite (cur_frame * PAGE_SIZE + offset, next_frame);
       // init the next_frame table
       if (virtual_address.length >= OFFSET_WIDTH * 2){
-        for (int i = 0; i < PAGE_SIZE; i++){
-          PMwrite (next_frame * PAGE_SIZE + i, 0);
-        }
+        reset_frame (next_frame);
       }
     }
     else op_frame = 0;
     cur_frame = next_frame;
   }
-  dest_address = cur_frame * PAGE_SIZE + virtual_address.address;
+  dest_address = cur_frame;
 }
 
+void reset_frame (word_t next_frame)
+{
+  for (int i = 0; i < PAGE_SIZE; i++){
+    PMwrite (next_frame * PAGE_SIZE + i, 0);
+  }
+}
 
+uint64_t get_frame_and_restore(uint64_t virtualAddress){
+  uint64_t dest_frame = 0;
+  bool need_restore = false;
+  get_frame (virtualAddress, dest_frame, need_restore);
+  // restore if needed
+  if (need_restore)
+  {
+    uint64_t v_address = virtualAddress >> OFFSET_WIDTH;
+    PMrestore (dest_frame, v_address);
+  }
+  return dest_frame;
+}
 
 int VMread(uint64_t virtualAddress, word_t* value){ //todo return success/ fail
-  // check if virtual address is in range of VIRTUAL_ADDRESS_WIDTH
-  // check for negative
-  uint64_t dest_address = 0;
-  get_address (virtualAddress, dest_address);
+  uint64_t dest_frame = get_frame_and_restore (virtualAddress);
   // read the page
-  PMread(dest_address, value);
+  PMread(dest_frame * PAGE_SIZE + get_offset_from_address (virtualAddress), value);
   // todo: return success / failure
 //  std::cout << "read " << value << std::endl;
   return 0;
 }
 
 int VMwrite(uint64_t virtualAddress, word_t value){ //todo return success/ fail
-  uint64_t dest_address = 0;
-  get_address (virtualAddress, dest_address);
-  PMwrite (dest_address, value);
+  uint64_t dest_frame = get_frame_and_restore (virtualAddress);
+  PMwrite (dest_frame * PAGE_SIZE + get_offset_from_address(virtualAddress),
+           value);
   // todo: return success / failure
 //  std::cout << "write " << "value" << " to " << value << std::endl;
   return 0;

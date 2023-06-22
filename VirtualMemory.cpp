@@ -7,7 +7,7 @@
 #define FAILURE 0
 
 struct virtualAddress{
-    int length;
+    word_t length;
     uint64_t address;
 };
 
@@ -206,6 +206,7 @@ void get_frame (uint64_t &_virtual_address, uint64_t& dest_address,
       }
     }
     else op_frame = 0;
+    shift = OFFSET_WIDTH;
     cur_frame = next_frame;
   }
   dest_address = cur_frame;

@@ -1,8 +1,10 @@
 #include "VirtualMemory.h"
-#include "EX4_Resources/PhysicalMemory.h"
-#include <cmath>
-#include <algorithm>
+//#include "EX4_Resources/PhysicalMemory.h"
+#include "PhysicalMemory.h"
 #include <iostream>
+
+#define SUCCESS 1
+#define FAILURE 0
 
 struct virtualAddress{
     int length;
@@ -18,7 +20,7 @@ struct maxDistPage{
 
 void reset_frame (word_t next_frame);
 void VMinitialize(){
-  for (int i = 0; i < OFFSET_WIDTH; ++i)
+  for (int i = 0; i < PAGE_SIZE; ++i)
   {
     PMwrite (i,0);
   }
@@ -70,7 +72,7 @@ uint64_t get_cyclic_dist (virtualAddress &virtual_info, const uint64_t
 
 
 /**
- * returns the empty table child if exists else 0
+ * returns the empty table decedent if exists else 0
  * @param virtualAddress
  * @param frame_pointer
  * @param max_frame_index
@@ -166,7 +168,7 @@ word_t get_next_frame (virtualAddress &path_info,
     // evict
     PMevict(max_page.frame_pointer, max_page.v_address);
     // reset frame todo maybe remove
-    reset_frame (max_page.frame_pointer);
+//    reset_frame (max_page.frame_pointer);
     // father unlink
     uint64_t page_link_address = max_page.parent_frame * PAGE_SIZE + (max_page
                                                                           .v_address % PAGE_SIZE);
@@ -216,6 +218,14 @@ void reset_frame (word_t next_frame)
   }
 }
 
+bool verify_address(uint64_t virtualAddress){
+  uint64_t offset = get_offset_from_address (virtualAddress);
+  uint64_t address = virtualAddress >> OFFSET_WIDTH;
+  return offset < PAGE_SIZE &&
+         address < NUM_PAGES &&
+         (offset >= 0 && address >= 0);
+}
+
 uint64_t get_frame_and_restore(uint64_t virtualAddress){
   uint64_t dest_frame = 0;
   bool need_restore = false;
@@ -229,21 +239,22 @@ uint64_t get_frame_and_restore(uint64_t virtualAddress){
   return dest_frame;
 }
 
-int VMread(uint64_t virtualAddress, word_t* value){ //todo return success/ fail
+int VMread(uint64_t virtualAddress, word_t* value){
+  if (!verify_address(virtualAddress)){
+    return FAILURE;
+  }
   uint64_t dest_frame = get_frame_and_restore (virtualAddress);
-  // read the page
   PMread(dest_frame * PAGE_SIZE + get_offset_from_address (virtualAddress), value);
-  // todo: return success / failure
-//  std::cout << "read " << value << std::endl;
-  return 0;
+  return SUCCESS;
 }
 
 int VMwrite(uint64_t virtualAddress, word_t value){ //todo return success/ fail
+  if (!verify_address(virtualAddress)){
+    return FAILURE;
+  }
   uint64_t dest_frame = get_frame_and_restore (virtualAddress);
   PMwrite (dest_frame * PAGE_SIZE + get_offset_from_address(virtualAddress),
            value);
-  // todo: return success / failure
-//  std::cout << "write " << "value" << " to " << value << std::endl;
-  return 0;
+  return SUCCESS;
 }
 

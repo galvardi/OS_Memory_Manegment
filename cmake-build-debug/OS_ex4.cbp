@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="OS_ex4"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OS_ex4">
+				<Option output="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/OS_ex4" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 OS_ex4"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="OS_ex4/fast">
+				<Option output="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/OS_ex4" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 OS_ex4/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/EX4_Resources/MemoryConstants.h">
+			<Option target="OS_ex4"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/EX4_Resources/PhysicalMemory.cpp">
+			<Option target="OS_ex4"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/EX4_Resources/PhysicalMemory.h">
+			<Option target="OS_ex4"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/EX4_Resources/SimpleTest.cpp">
+			<Option target="OS_ex4"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/VirtualMemory.cpp">
+			<Option target="OS_ex4"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/VirtualMemory.h">
+			<Option target="OS_ex4"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/galva/CLionProjects/OS_ex4/OS_Memory_Manegment/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
